@@ -1,15 +1,19 @@
 import axios from "axios";
+import dotenv from "dotenv";
 
-const API_URL = "http://localhost:8080/api/auth/";
+
+const API_URL = "http://localhost:8000/api/auth/";
+console.log(API_URL);
 
 class AuthService {
-  login(username: string, password: string) {
-    return axios
+  async login(username: string, password: string) {
+    return await axios
       .post(API_URL + "signin", {
         username,
-        password
+        password,
       })
-      .then(response => {
+      .then((response) => {
+        console.log(response)
         if (response.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(response.data));
         }
@@ -26,7 +30,7 @@ class AuthService {
     return axios.post(API_URL + "signup", {
       username,
       email,
-      password
+      password,
     });
   }
 
